@@ -1,7 +1,7 @@
 from django.contrib.auth import authenticate
 from rest_framework import serializers
 from .models import BlogUser
-
+from django.contrib.auth import login
 
 class RegistrationSerializer(serializers.ModelSerializer):
     password = serializers.CharField(max_length=255, min_length=8, write_only=True)
@@ -48,8 +48,12 @@ class LoginSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError(
                 'A user with this email and password was not found'
             )
-
-        return data
-
+        return user
 
 
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BlogUser
+        fields = [
+            'pk', 'email', 'password'
+        ]
