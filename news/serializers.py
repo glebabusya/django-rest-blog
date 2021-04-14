@@ -12,7 +12,7 @@ class PostCreateSerializer(serializers.ModelSerializer):
 
 class PostSerializer(serializers.ModelSerializer):
     author = serializers.StringRelatedField(read_only=True)
-    comments = serializers.StringRelatedField(many=True)
+    comments = serializers.StringRelatedField(read_only=True, many=True)
     slug = serializers.CharField(max_length=255, read_only=True)
 
     class Meta:
