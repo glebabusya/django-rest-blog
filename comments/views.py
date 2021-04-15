@@ -13,9 +13,14 @@ class CommentCreateAPIView(CreateAPIView):
 
     def post(self, request, *args, **kwargs):
         serializer = self.serializer_class(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        data = serializer.validated_data
-        comment = models.Comment(body=data['body'], author=request.user, post=data['post'])
+        data = serializer.initial_data
+
+        if data['to'][:4] == 'post':
+            comment = models.Comment(body=data['body'], author=request.user, post=data['to'][4:])
+        else:
+            parent_comment = models.Comment.objects.get(pk=int(data['to'][7:]))
+            post = models.Post.objects.get(comments=parent_comment)
+            comment = models.Comment(body=data['body'], author=request.user, post=post, parentComment=parent_comment)
         comment.save()
         return Response(status=status.HTTP_201_CREATED)
 
