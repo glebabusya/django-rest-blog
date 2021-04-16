@@ -1,8 +1,8 @@
 build:
   docker:
     web: Dockerfile
-release:
+run:
+  web: uvicorn main:blog --reload --host 0.0.0.0.127
   image: web
   command:
-    - django-admin migrate --noinput
-    
+    - python manage.py collectstatic -noinput
