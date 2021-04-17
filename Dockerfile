@@ -4,6 +4,7 @@ WORKDIR /blog
 
 ENV PYTHONBUFFERED=1 \
     PYTHONPATH=/blog \
+    DJANGO_SETTINGS_MODULE=blog.settings \
     PORT=8000 \
     WEB_CURRENCY=3
 
