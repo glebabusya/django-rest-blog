@@ -17,5 +17,5 @@ COPY . .
 
 RUN python manage.py collectstatic --noinput --clear
 
-CMD gunicorn blog.wsgi:application --bind 0.0.0.0:8000
+CMD gunicorn blog.wsgi:application
 

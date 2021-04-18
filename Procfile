@@ -1,4 +1,4 @@
-web: gunicorn blog.wsgi:application --log-file - --log-level debug
+web: gunicorn blog.wsgi
 python manage.py collectstatic --noinput
 python manage.py makemigrations
 python manage.py migrate
